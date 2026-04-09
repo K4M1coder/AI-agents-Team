@@ -152,6 +152,36 @@ When introducing or changing a structural element, check the following:
 - Rename only when the new name improves scope clarity.
 - Update all explicit branches, handoff tables, and routing notes in the same change.
 
+## Memory System
+
+The team maintains local memory in `.github/memory/`, divided into two scopes.
+
+| Scope | Path | Purpose | Lifecycle |
+| ----- | ---- | ------- | --------- |
+| **Static** | `.github/memory/static/` | Durable team knowledge — always available | Added deliberately, removed when obsolete |
+| **Dynamic** | `.github/memory/dynamic/` | Working memory — per-request task state | Created at request start, archived on completion |
+
+### Static Memory
+
+Persistent knowledge the team must always have access to: verified conventions, audit results, lessons learned, project context. Content is reviewed before merging and dated (`Last updated: YYYY-MM-DD`).
+
+### Dynamic Memory
+
+One folder per active request: `dynamic/<YYYY-MM-DD>_<short-descriptor>/`. Each folder contains `context.md` (scope, objective, dependencies) and `progress.md` (task log, notes). Working artifacts stay with the request. On completion, valuable insights are extracted to `static/` before the folder is archived.
+
+### Boundary with Other Surfaces
+
+- **Reusable workflows** → skills (`skills/<name>/SKILL.md`)
+- **Cross-cutting routing matrices** → shared references (`skills/_shared/references/`)
+- **Structural policy** → this file (`GOVERNANCE.md`)
+- **Operational knowledge and working state** → memory (`memory/static/` and `memory/dynamic/`)
+
+### Governance
+
+- **Structure owner**: `team-maintainer`
+- **Writers**: Any agent may write to `dynamic/` during execution. Only deliberate team actions write to `static/`.
+- **Branching status**: Memory files are `runtime-optional`.
+
 ## Review Cadence
 
 | Surface | Minimum Review Cadence |
