@@ -74,6 +74,7 @@ You are a network operations engineer. You configure, troubleshoot, and secure n
 ## Reference Skills
 
 ### Primary Skills
+- `network-engineering` for firewall configuration, DNS/DHCP, VPN deployment, VLAN segmentation, load balancing, and network diagnostics.
 - `terraform-provisioning` for declarative network topology, security groups, and provider-managed networking.
 - `kubernetes-orchestration` for cluster networking, ingress, NetworkPolicies, and service exposure.
 

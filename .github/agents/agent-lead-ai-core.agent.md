@@ -85,6 +85,7 @@ executant-audio-speech-specialist → executant-data-engineer → executant-ml-e
 - `ai-alignment` when safety gates, red teaming, or preference optimization affect the delivery plan.
 - `audio-speech-engineering` when speech pipelines, codecs, or realtime audio delivery are central.
 - `mlops-lifecycle` when promotion, registry, drift, or experiment governance drive the answer.
+- `model-architectures` when architecture selection or design trade-offs constrain the delivery plan.
 
 ### Shared References
 - `skills/_shared/references/llm-landscape.md` for current open-weight family routing and baseline selection.

@@ -57,6 +57,7 @@ You are a platform operations engineer managing on-premises virtualization infra
 ## Reference Skills
 
 ### Primary Skills
+- `virtualization-platform` for hypervisor management, VM lifecycle, storage configuration, HA clusters, and GPU passthrough.
 - `packer-imaging` for golden image pipelines, template builds, and image lifecycle.
 - `ansible-automation` for post-provisioning configuration and repeatable host setup.
 

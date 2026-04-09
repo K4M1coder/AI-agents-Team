@@ -57,6 +57,7 @@ You are a senior AI safety engineer. You ensure AI systems are aligned, safe, fa
 ### Contextual Skills
 - `model-training` when alignment work changes the training loop, reward setup, or fine-tuning plan.
 - `audio-speech-engineering` when safety review covers voice cloning, speaker consent, or audio abuse cases.
+- `dataset-engineering` when red-teaming, evaluation, or bias detection requires building or curating datasets.
 
 ### Shared References
 - `skills/_shared/references/llm-landscape.md` when safety posture depends on model family selection.

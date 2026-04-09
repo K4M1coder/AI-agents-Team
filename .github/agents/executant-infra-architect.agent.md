@@ -51,6 +51,9 @@ When evaluating IaC tools for a task:
 ### Contextual Skills
 - `packer-imaging` when golden images or template pipelines are architectural constraints.
 - `kubernetes-orchestration` when the target architecture is cluster-native.
+- `docker-containerization` when containerization patterns materially shape infrastructure design.
+- `cloud-operations` when cloud provider selection, multi-cloud patterns, or FinOps constrain architecture.
+- `virtualization-platform` when hypervisor selection, storage design, or HA architecture is a decision driver.
 
 ### Shared References
 - `skills/_shared/references/environments.md` for platform-specific constraints.

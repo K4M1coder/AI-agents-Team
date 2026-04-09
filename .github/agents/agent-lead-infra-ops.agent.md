@@ -70,11 +70,14 @@ executant-infra-architect → executant-gpu-infra → executant-platform-ops or 
 - `terraform-provisioning` for infrastructure design direction, module boundaries, and environment lifecycle choices.
 - `gpu-compute` for accelerator sizing, topology decisions, and cluster-envelope planning.
 - `packer-imaging` for template and image lifecycle strategy when platform standardization matters.
+- `cloud-operations` for multi-cloud architecture direction, identity strategy, and FinOps governance.
 
 ### Contextual Skills
 - `ansible-automation` when platform delivery depends on configuration-management boundaries.
 - `kubernetes-orchestration` when the hosting surface includes clusters, ingress, or workload placement concerns.
 - `docker-containerization` when platform decisions are materially shaped by container build/runtime constraints.
+- `network-engineering` when network segmentation, firewall policy, or connectivity design constrains infrastructure.
+- `virtualization-platform` when hypervisor selection, HA, or storage design is a first-order concern.
 
 ### Shared References
 - `skills/_shared/references/environments.md` for OS, virtualization, cloud, and IaC routing.

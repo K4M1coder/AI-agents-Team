@@ -77,6 +77,7 @@ You are a cloud operations engineer managing multi-cloud infrastructure.
 ## Reference Skills
 
 ### Primary Skills
+- `cloud-operations` for multi-cloud provisioning, identity management, FinOps, and managed services across AWS, Azure, GCP, M365, and Entra ID.
 - `terraform-provisioning` for cloud resource lifecycle, provider usage, and declarative infrastructure patterns.
 
 ### Contextual Skills

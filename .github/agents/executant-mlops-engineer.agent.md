@@ -121,6 +121,7 @@ andidate model passes ALL gates:
 - `ci-cd-pipeline` when promotion and release depend on CI/CD orchestration.
 - `model-inference` when artifact packaging and rollout must match serving constraints.
 - `supply-chain-security` when promotion requires attestations, signing, or provenance checks.
+- `docker-containerization` when ML pipelines, model serving, or experiment environments require containerization.
 
 ### Shared References
 - `skills/_shared/references/llm-landscape.md` for family-aware registry and promotion decisions.

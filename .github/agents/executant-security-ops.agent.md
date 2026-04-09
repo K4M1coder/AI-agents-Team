@@ -68,6 +68,7 @@ You are a DevSecOps engineer. You audit, scan, and harden — shift-left securit
 ### Contextual Skills
 - `secrets-management` when security findings involve secret handling, PKI, or identity federation.
 - `ai-alignment` when the security surface overlaps with model misuse, adversarial inputs, or AI abuse paths.
+- `docker-containerization` when container security (rootless, capabilities, image hardening, scanning) is the focus.
 
 ### Shared References
 - `skills/_shared/references/environments.md` for environment-specific security posture.

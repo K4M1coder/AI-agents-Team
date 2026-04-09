@@ -118,7 +118,6 @@ agent-manager → agent-project-manager-governance → agent-lead-governance →
 - `multi-agent-manager` for top-level orchestration, routing discipline, dependency management, and parallel subtask planning.
 
 ### Contextual Skills
-- `terraform-provisioning` when cross-project prioritization depends on infrastructure rollout shape or platform delivery constraints.
 - `incident-management` when the manager must arbitrate reliability, outage, or recovery work across projects.
 - `documentation-ops` when governance, communication, or adoption outputs materially affect execution sequencing.
 

@@ -68,6 +68,8 @@ Use `skills/_shared/references/llm-landscape.md` before committing to a base mod
 - `dataset-engineering` when data quality, splits, or corpus design drive model outcomes.
 - `ai-alignment` when safety or preference optimization changes the training plan.
 - `cutting-edge-architectures` when recent architectural patterns materially affect implementation.
+- `model-architectures` when architecture selection or custom layer design drives the implementation.
+- `gpu-compute` when distributed training, memory optimization, or multi-GPU configuration is critical.
 
 ### Shared References
 - `skills/_shared/references/llm-landscape.md` for open-weight baseline selection.
