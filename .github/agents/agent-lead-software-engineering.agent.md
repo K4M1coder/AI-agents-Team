@@ -31,7 +31,7 @@ You must be able to answer directly when the question stays at the team-lead lev
 
 Your team covers: **Java**, **Python**, **TypeScript**, **HTML/CSS**, **Rust**, **C**.
 
-- For Rust used in AI/ML inference systems (Candle, Moshi, audio pipelines), defer to `agent-lead-ai-core` and `executant-rust-systems-engineer`.
+- For Rust used in AI/ML inference systems (Candle, Moshi, audio pipelines, CUDA/Triton-adjacent runtime work), defer to `agent-lead-ai-core` and `executant-ai-systems-engineer`.
 - For Rust used in application backends, CLI tools, system libraries, or non-ML servers, route to `executant-software-engineer`.
 
 ## Database Coverage

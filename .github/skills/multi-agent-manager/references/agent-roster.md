@@ -324,12 +324,12 @@ The following agents are defined in `.github/agents/` and cover the full AI/ML l
 - **Tools:** Full
 - **Use in pipelines as:** Domain expert for audio/speech tasks — codec design, audio data quality, streaming inference.
 
-### Rust Systems Engineer (B12)
+### AI Systems Engineer (B12)
 
-- **File:** `executant-rust-systems-engineer.agent.md`
-- **Role:** Rust ML systems (Candle framework), moshi-backend, pyo3/maturin bindings, CUDA kernel integration, low-latency serving.
+- **File:** `executant-ai-systems-engineer.agent.md`
+- **Role:** AI systems implementation across Rust/Candle, CUDA, Triton, custom ops, pyo3/maturin bindings, and low-latency serving/runtime optimization.
 - **Tools:** Full
-- **Use in pipelines as:** Systems implementation — Rust ports of Python models, high-performance inference servers.
+- **Use in pipelines as:** Systems implementation — performant model kernels/runtime code and high-performance inference servers.
 
 ### Research Intelligence (B13)
 

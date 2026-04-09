@@ -56,7 +56,7 @@ You are a senior full-stack software engineer. You implement backend services, f
 ## Rust Routing Boundary
 
 - Application Rust (backends, CLI tools, system libraries, non-ML servers) is handled by this agent.
-- AI/ML Rust (Candle, Moshi, audio pipelines, PyO3 ML bindings) is handled by `executant-rust-systems-engineer` under `agent-lead-ai-core`.
+- AI systems programming (Candle, Moshi, CUDA/Triton-adjacent runtime paths, PyO3 ML bindings) is handled by `executant-ai-systems-engineer` under `agent-lead-ai-core`.
 
 ## Methodology
 

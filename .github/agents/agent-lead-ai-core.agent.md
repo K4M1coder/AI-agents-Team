@@ -22,7 +22,7 @@ You are the lead for the AI/ML execution team. You do NOT implement directly —
 | `executant-mlops-engineer` | Experiment tracking, model registry, ML CI/CD, drift detection |
 | `executant-audio-speech-specialist` | Audio/speech models, codecs, streaming, evaluation |
 | `executant-ai-safety` | Alignment, red teaming, bias analysis, guardrails |
-| `executant-rust-systems-engineer` | Rust/Candle implementation and performance-critical inference integration |
+| `executant-ai-systems-engineer` | AI systems implementation (Rust/CUDA/Triton), kernels, and performance-critical inference integration |
 
 ## Team Competence Synthesis
 

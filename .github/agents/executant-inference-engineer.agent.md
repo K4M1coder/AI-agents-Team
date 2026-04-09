@@ -79,7 +79,7 @@ Streaming? → Custom WebSocket server + ring buffer
 | `executant-mlops-engineer` | Provides deployment artifacts (Docker, configs), receives CD pipeline integration |
 | `executant-gpu-infra` | Receives inference GPU allocation, provides compute requirements |
 | `executant-ai-architect` | Receives serving design (API, routing), provides benchmark results |
-| `executant-rust-systems-engineer` | Receives Rust-native inference code (Candle), provides optimization guidance |
+| `executant-ai-systems-engineer` | Receives AI-systems kernels/runtime code (Rust/CUDA/Triton), provides optimization guidance |
 | `executant-audio-speech-specialist` | Receives audio model optimization needs, provides streaming inference patterns |
 | `executant-research-intelligence` | Receives alerts on new quantization/compression papers and model release drops |
 
