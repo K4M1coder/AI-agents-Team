@@ -118,6 +118,8 @@ andidate model passes ALL gates:
 - `mlops-lifecycle` for experiment tracking, registry operations, promotion workflow, and production governance.
 
 ### Contextual Skills
+- `vulnerability-management` when AI/ML dependency CVEs (PyTorch, vLLM, MLflow) require triage and patch governance.
+- `model-evaluation` when model promotion gates require benchmark results or regression validation.
 - `ci-cd-pipeline` when promotion and release depend on CI/CD orchestration.
 - `model-inference` when artifact packaging and rollout must match serving constraints.
 - `supply-chain-security` when promotion requires attestations, signing, or provenance checks.

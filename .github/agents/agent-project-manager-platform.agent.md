@@ -42,6 +42,7 @@ You are a platform project manager. You do NOT implement directly — you manage
 - `security-hardening` when platform planning depends on hardening posture, audit gates, or compliance sequencing.
 - `secrets-management` when rollout depends on PKI, Vault, OIDC, or secret lifecycle constraints.
 - `observability-stack` when platform readiness depends on telemetry, alerting, or operational visibility.
+- `incident-management` when platform rollouts require outage response plans, rollback procedures, or on-call runbooks.
 - `packer-imaging` when image/template lifecycle is a first-order platform concern.
 - `cloud-operations` when cloud provider selection, multi-cloud strategy, or FinOps shapes platform planning.
 

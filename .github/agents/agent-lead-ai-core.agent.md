@@ -81,6 +81,7 @@ executant-audio-speech-specialist → executant-data-engineer → executant-ml-e
 - `model-inference` for serving-envelope decisions, deployment tradeoffs, and runtime constraints.
 
 ### Contextual Skills
+- `model-evaluation` when model promotion gates, benchmark comparisons, or capability reporting shape the delivery plan.
 - `dataset-engineering` when the lead decision is constrained by data quality, sourcing, or labeling strategy.
 - `ai-alignment` when safety gates, red teaming, or preference optimization affect the delivery plan.
 - `audio-speech-engineering` when speech pipelines, codecs, or realtime audio delivery are central.

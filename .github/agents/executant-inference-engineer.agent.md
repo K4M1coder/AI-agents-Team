@@ -62,6 +62,7 @@ Streaming? → Custom WebSocket server + ring buffer
 - `model-inference` for serving frameworks, quantization, batching, and deployment optimization.
 
 ### Contextual Skills
+- `model-evaluation` when post-quantization quality validation or latency-quality tradeoff analysis is required.
 - `gpu-compute` when deployment viability depends on accelerator topology or memory budget.
 - `ai-integration` when the inference surface must fit a larger API or multi-model workflow.
 - `cutting-edge-architectures` when serving depends on MoE, MLA, or advanced cache/compression patterns.

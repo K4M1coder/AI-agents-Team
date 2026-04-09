@@ -65,6 +65,7 @@ Use `skills/_shared/references/llm-landscape.md` before committing to a base mod
 - `model-training` for training loops, fine-tuning, distributed learning, and baseline selection.
 
 ### Contextual Skills
+- `model-evaluation` when checkpoints must be benchmarked, compared, or validated before promotion.
 - `dataset-engineering` when data quality, splits, or corpus design drive model outcomes.
 - `ai-alignment` when safety or preference optimization changes the training plan.
 - `cutting-edge-architectures` when recent architectural patterns materially affect implementation.

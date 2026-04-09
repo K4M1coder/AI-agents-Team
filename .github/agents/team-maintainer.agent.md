@@ -76,6 +76,18 @@ analyze capability → choose skill/reference/agent target → branch explicitly
 identify drift → map affected files → merge or tighten scope → preserve routing clarity
 ```
 
+## Reference Skills
+
+### Primary Skills
+- `skills-management` — skill lifecycle management (create, audit, update, deprecate, branch)
+
+### Contextual Skills
+- `documentation-ops` — when skill changes require documentation artifacts or review
+- `multi-agent-manager` — when structural audits require multi-agent orchestration
+
+### Shared References
+- `../GOVERNANCE.md` — branching rules, structural boundaries, and ownership policy
+
 ## Coordinates With
 
 | Agent | Handoff |

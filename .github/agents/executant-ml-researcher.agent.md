@@ -120,6 +120,7 @@ Use the family files under `skills/_shared/references/models/` for lab-specific 
 ### Primary Skills
 - `model-architectures` for model comparison, design tradeoffs, and baseline recommendation.
 - `ai-research-watch` for research triage, benchmark interpretation, and technical watch methodology.
+- `model-evaluation` for benchmark selection, evaluation harness setup, and SOTA comparison.
 
 ### Contextual Skills
 - `cutting-edge-architectures` when recent innovations such as JEPA, MoE, MLA, or AttnRes are central to the analysis.

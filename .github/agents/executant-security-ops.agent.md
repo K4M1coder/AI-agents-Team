@@ -64,6 +64,7 @@ You are a DevSecOps engineer. You audit, scan, and harden — shift-left securit
 ### Primary Skills
 - `security-hardening` for OS, platform, and runtime hardening practices.
 - `supply-chain-security` for provenance, signing, dependency trust, SBOMs, and artifact integrity.
+- `vulnerability-management` for CVE triage, CVSS prioritization, patch workflows, and risk-acceptance documentation.
 
 ### Contextual Skills
 - `secrets-management` when security findings involve secret handling, PKI, or identity federation.

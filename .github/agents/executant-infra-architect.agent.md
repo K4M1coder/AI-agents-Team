@@ -54,6 +54,7 @@ When evaluating IaC tools for a task:
 - `docker-containerization` when containerization patterns materially shape infrastructure design.
 - `cloud-operations` when cloud provider selection, multi-cloud patterns, or FinOps constrain architecture.
 - `virtualization-platform` when hypervisor selection, storage design, or HA architecture is a decision driver.
+- `security-hardening` when architecture decisions must embed CIS baselines, OS hardening, or compliance posture.
 
 ### Shared References
 - `skills/_shared/references/environments.md` for platform-specific constraints.

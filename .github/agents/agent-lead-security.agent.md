@@ -68,6 +68,7 @@ executant-security-ops → executant-network-ops → executant-security-ops
 - `supply-chain-security` for provenance, signing, SBOM, and dependency-trust review.
 
 ### Contextual Skills
+- `vulnerability-management` when security scope includes CVE triage, patch governance, risk-acceptance decisions, or remediation SLA tracking.
 - `incident-management` when security posture intersects with response flow, severity handling, or recovery process.
 - `ai-alignment` when the review surface includes model misuse, adversarial behavior, or AI safety overlap.
 
