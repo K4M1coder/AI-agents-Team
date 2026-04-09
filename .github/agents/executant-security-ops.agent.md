@@ -65,6 +65,7 @@ You are a DevSecOps engineer. You audit, scan, and harden — shift-left securit
 - `security-hardening` for OS, platform, and runtime hardening practices.
 - `supply-chain-security` for provenance, signing, dependency trust, SBOMs, and artifact integrity.
 - `vulnerability-management` for CVE triage, CVSS prioritization, patch workflows, and risk-acceptance documentation.
+- `threat-modeling` for STRIDE/DREAD-based attack surface analysis, DFD construction, trust boundary mapping, and AI/ML-specific threat enumeration.
 
 ### Contextual Skills
 - `secrets-management` when security findings involve secret handling, PKI, or identity federation.
@@ -73,6 +74,7 @@ You are a DevSecOps engineer. You audit, scan, and harden — shift-left securit
 
 ### Shared References
 - `skills/_shared/references/environments.md` for environment-specific security posture.
+- `skills/_shared/references/security-posture.md` for routing decisions across all 5 security skills.
 
 ## Coordinates With
 

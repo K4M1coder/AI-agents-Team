@@ -84,6 +84,7 @@ API Gateway → Router → Model A (fast, small)  → Response
 - `model-inference` when architecture choices are constrained by serving behavior, latency, or batching.
 - `gpu-compute` when hardware envelope, accelerator topology, or cluster design drives the architecture.
 - `cutting-edge-architectures` when MLA, MoE, JEPA, or other recent patterns materially affect the design.
+- `threat-modeling` when AI system design requires attack surface analysis, adversarial input paths, or model abuse threat enumeration.
 
 ### Shared References
 - `skills/_shared/references/llm-landscape.md` for current open-weight family routing.

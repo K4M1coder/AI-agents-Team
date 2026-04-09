@@ -69,9 +69,11 @@ executant-ci-cd-ops → executant-observability-ops → executant-sre-ops
 
 ### Contextual Skills
 - `kubernetes-orchestration` when reliability scope depends on cluster-native rollout, service exposure, or runtime patterns.
+- `performance-engineering` when reliability programs require capacity modeling, load test design, or SLO-based resource budgeting.
 
 ### Shared References
 - `skills/_shared/references/environments.md` for operational constraints across target environments.
+- `skills/_shared/references/cicd-routing.md` for CI platform selection and pipeline-stage integration decisions.
 
 ## Coordinates With
 

@@ -80,6 +80,7 @@ identify drift → map affected files → merge or tighten scope → preserve ro
 
 ### Primary Skills
 - `skills-management` — skill lifecycle management (create, audit, update, deprecate, branch)
+- `agent-customization` — authoring and validating .agent.md and SKILL.md files following team conventions
 
 ### Contextual Skills
 - `documentation-ops` — when skill changes require documentation artifacts or review

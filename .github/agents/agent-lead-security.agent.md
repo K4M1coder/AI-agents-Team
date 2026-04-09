@@ -71,9 +71,11 @@ executant-security-ops → executant-network-ops → executant-security-ops
 - `vulnerability-management` when security scope includes CVE triage, patch governance, risk-acceptance decisions, or remediation SLA tracking.
 - `incident-management` when security posture intersects with response flow, severity handling, or recovery process.
 - `ai-alignment` when the review surface includes model misuse, adversarial behavior, or AI safety overlap.
+- `threat-modeling` when security scope requires design-time STRIDE/DREAD analysis, trust boundary reviews, or AI/ML threat enumeration.
 
 ### Shared References
 - `skills/_shared/references/environments.md` for environment-specific security constraints.
+- `skills/_shared/references/security-posture.md` for routing decisions across all 5 security skills.
 
 ## Coordinates With
 

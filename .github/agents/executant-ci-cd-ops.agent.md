@@ -107,6 +107,7 @@ You are a CI/CD engineer. You design and implement build, test, and deployment p
 
 ### Shared References
 - `skills/_shared/references/environments.md` for environment-specific delivery constraints.
+- `skills/_shared/references/cicd-routing.md` for CI platform selection and pipeline-stage integration decisions.
 
 ## Coordinates With
 

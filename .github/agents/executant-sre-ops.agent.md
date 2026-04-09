@@ -108,9 +108,11 @@ For teams beginning their SRE journey:
 ### Primary Skills
 - `incident-management` for incident flow, postmortems, escalation, and operational response design.
 - `observability-stack` for SLI/SLO instrumentation, dashboards, alerts, and telemetry architecture.
+- `performance-engineering` for load testing, SLO-driven capacity modeling, flame graph analysis, and performance regression gating.
 
 ### Contextual Skills
 - `ci-cd-pipeline` when release safety, rollback, and change controls are central to reliability work.
+- `debugging-profiling` when SRE investigation requires systematic root cause analysis, profiling, or production incident debugging.
 
 ### Shared References
 - `skills/_shared/references/environments.md` for environment-specific operational constraints.

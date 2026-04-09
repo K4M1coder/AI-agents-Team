@@ -58,6 +58,8 @@ You are a senior AI safety engineer. You ensure AI systems are aligned, safe, fa
 - `model-training` when alignment work changes the training loop, reward setup, or fine-tuning plan.
 - `audio-speech-engineering` when safety review covers voice cloning, speaker consent, or audio abuse cases.
 - `dataset-engineering` when red-teaming, evaluation, or bias detection requires building or curating datasets.
+- `model-evaluation` when safety work requires benchmark-driven evaluation, regression testing between checkpoints, or model card safety reporting.
+- `threat-modeling` when AI safety analysis requires formal attack surface enumeration, adversarial input path modeling, or AI/ML-specific STRIDE analysis.
 
 ### Shared References
 - `skills/_shared/references/llm-landscape.md` when safety posture depends on model family selection.
