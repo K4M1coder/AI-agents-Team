@@ -3,21 +3,39 @@
 vlan_package_name: vlan
 
 vlans: []
-#  - id: 10
-#    name: mgmt
-#    parent_interface: eth0
-#    address: "10.20.10.1/24"
-#    description: "Management VLAN"
-#  - id: 20
-#    name: prod
-#    parent_interface: eth0
-#    address: "10.20.20.1/24"
-#    description: "Production VLAN"
-#  - id: 30
-#    name: dmz
-#    parent_interface: eth0
-#    address: "10.20.30.1/24"
-#    description: "DMZ VLAN"
+# Example VLAN topology — M1 Network MVP
+# Uncomment and adapt for your environment:
+#
+# vlans:
+#   - id: 10
+#     name: mgmt
+#     parent_interface: eth0
+#     address: "10.20.10.1/24"
+#     gateway: "10.20.10.1"
+#     description: "Management VLAN — SSH, monitoring, admin access"
+#     dns_servers:
+#       - "10.20.10.2"
+#     mtu: 1500
+#
+#   - id: 20
+#     name: prod
+#     parent_interface: eth0
+#     address: "10.20.20.1/24"
+#     gateway: "10.20.20.1"
+#     description: "Production VLAN — application workloads"
+#     dns_servers:
+#       - "10.20.10.2"
+#     mtu: 1500
+#
+#   - id: 30
+#     name: dmz
+#     parent_interface: eth0
+#     address: "10.20.30.1/24"
+#     gateway: "10.20.30.1"
+#     description: "DMZ VLAN — public-facing services (HTTP/HTTPS)"
+#     dns_servers:
+#       - "10.20.10.2"
+#     mtu: 1500
 
 vlan_use_netplan: false
 vlan_use_networkd: true

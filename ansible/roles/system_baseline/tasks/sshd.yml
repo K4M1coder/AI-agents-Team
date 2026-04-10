@@ -1,0 +1,110 @@
+---
+# SSH Hardening — CIS Level 1
+# Ref: CIS 5.2.x (SSH Server Configuration)
+
+- name: Ensure SSH server is installed
+  ansible.builtin.package:
+    name: openssh-server
+    state: present
+
+- name: Set SSH PermitRootLogin
+  ansible.builtin.lineinfile:
+    path: "{{ sshd_config_path }}"
+    regexp: "^#?PermitRootLogin"
+    line: "PermitRootLogin {{ sshd_permit_root_login }}"
+    validate: "sshd -t -f %s"
+  notify: restart sshd
+
+- name: Set SSH PasswordAuthentication
+  ansible.builtin.lineinfile:
+    path: "{{ sshd_config_path }}"
+    regexp: "^#?PasswordAuthentication"
+    line: "PasswordAuthentication {{ sshd_password_authentication }}"
+    validate: "sshd -t -f %s"
+  notify: restart sshd
+
+- name: Set SSH PermitEmptyPasswords
+  ansible.builtin.lineinfile:
+    path: "{{ sshd_config_path }}"
+    regexp: "^#?PermitEmptyPasswords"
+    line: "PermitEmptyPasswords {{ sshd_permit_empty_passwords }}"
+    validate: "sshd -t -f %s"
+  notify: restart sshd
+
+- name: Set SSH X11Forwarding
+  ansible.builtin.lineinfile:
+    path: "{{ sshd_config_path }}"
+    regexp: "^#?X11Forwarding"
+    line: "X11Forwarding {{ sshd_x11_forwarding }}"
+    validate: "sshd -t -f %s"
+  notify: restart sshd
+
+- name: Set SSH MaxAuthTries
+  ansible.builtin.lineinfile:
+    path: "{{ sshd_config_path }}"
+    regexp: "^#?MaxAuthTries"
+    line: "MaxAuthTries {{ sshd_max_auth_tries }}"
+    validate: "sshd -t -f %s"
+  notify: restart sshd
+
+- name: Set SSH ClientAliveInterval
+  ansible.builtin.lineinfile:
+    path: "{{ sshd_config_path }}"
+    regexp: "^#?ClientAliveInterval"
+    line: "ClientAliveInterval {{ sshd_client_alive_interval }}"
+    validate: "sshd -t -f %s"
+  notify: restart sshd
+
+- name: Set SSH ClientAliveCountMax
+  ansible.builtin.lineinfile:
+    path: "{{ sshd_config_path }}"
+    regexp: "^#?ClientAliveCountMax"
+    line: "ClientAliveCountMax {{ sshd_client_alive_count_max }}"
+    validate: "sshd -t -f %s"
+  notify: restart sshd
+
+- name: Set SSH LoginGraceTime
+  ansible.builtin.lineinfile:
+    path: "{{ sshd_config_path }}"
+    regexp: "^#?LoginGraceTime"
+    line: "LoginGraceTime {{ sshd_login_grace_time }}"
+    validate: "sshd -t -f %s"
+  notify: restart sshd
+
+- name: Set SSH LogLevel
+  ansible.builtin.lineinfile:
+    path: "{{ sshd_config_path }}"
+    regexp: "^#?LogLevel"
+    line: "LogLevel {{ sshd_log_level }}"
+    validate: "sshd -t -f %s"
+  notify: restart sshd
+
+- name: Set allowed ciphers
+  ansible.builtin.lineinfile:
+    path: "{{ sshd_config_path }}"
+    regexp: "^#?Ciphers"
+    line: "Ciphers {{ sshd_allowed_ciphers }}"
+    validate: "sshd -t -f %s"
+  notify: restart sshd
+
+- name: Set allowed MACs
+  ansible.builtin.lineinfile:
+    path: "{{ sshd_config_path }}"
+    regexp: "^#?MACs"
+    line: "MACs {{ sshd_allowed_macs }}"
+    validate: "sshd -t -f %s"
+  notify: restart sshd
+
+- name: Set allowed key exchange algorithms
+  ansible.builtin.lineinfile:
+    path: "{{ sshd_config_path }}"
+    regexp: "^#?KexAlgorithms"
+    line: "KexAlgorithms {{ sshd_allowed_kex }}"
+    validate: "sshd -t -f %s"
+  notify: restart sshd
+
+- name: Ensure SSH service is enabled and running
+  ansible.builtin.service:
+    name: sshd
+    state: started
+    enabled: true

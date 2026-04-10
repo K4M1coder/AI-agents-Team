@@ -1,0 +1,34 @@
+---
+# Kernel / sysctl Hardening — CIS Level 1
+# Ref: CIS 3.x (Network Parameters)
+
+- name: Disable IP forwarding (non-routers only)
+  ansible.posix.sysctl:
+    name: "net.ipv4.ip_forward"
+    value: "0"
+    sysctl_set: true
+    state: present
+    reload: true
+  when: not (sysctl_is_router | bool)
+  notify: reload sysctl
+
+- name: Enable IP forwarding (routers only)
+  ansible.posix.sysctl:
+    name: "net.ipv4.ip_forward"
+    value: "1"
+    sysctl_set: true
+    state: present
+    reload: true
+  when: sysctl_is_router | bool
+  notify: reload sysctl
+
+- name: Apply CIS sysctl parameters
+  ansible.posix.sysctl:
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
+    sysctl_set: true
+    state: present
+    reload: true
+    sysctl_file: /etc/sysctl.d/99-cis-hardening.conf
+  loop: "{{ sysctl_params | dict2items }}"
+  notify: reload sysctl

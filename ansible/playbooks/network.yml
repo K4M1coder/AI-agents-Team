@@ -1,0 +1,60 @@
+---
+# Network playbook — M1 Network MVP
+# Configures VLANs, DNS, and NTP on network infrastructure hosts
+#
+# Usage:
+#   ansible-playbook ansible/playbooks/network.yml
+#   ansible-playbook ansible/playbooks/network.yml --tags vlans
+#   ansible-playbook ansible/playbooks/network.yml --tags dns
+#   ansible-playbook ansible/playbooks/network.yml --tags ntp
+
+- name: Configure network infrastructure (M1 MVP)
+  hosts: network_hosts
+  become: true
+  gather_facts: true
+  any_errors_fatal: true
+
+  pre_tasks:
+    - name: Verify host connectivity
+      ansible.builtin.ping:
+      tags: always
+
+    - name: Gather network facts
+      ansible.builtin.setup:
+        gather_subset:
+          - network
+          - hardware
+      tags: always
+
+    - name: Assert minimum Ansible version
+      ansible.builtin.assert:
+        that:
+          - ansible_version.full is version('2.15', '>=')
+        fail_msg: "This playbook requires Ansible 2.15 or later"
+      tags: always
+
+  roles:
+    - role: network_vlans
+      tags:
+        - vlans
+        - network
+
+    - role: network_dns
+      tags:
+        - dns
+        - network
+
+    - role: network_ntp
+      tags:
+        - ntp
+        - network
+
+  post_tasks:
+    - name: Report network configuration summary
+      ansible.builtin.debug:
+        msg: >-
+          Network configuration applied:
+          VLANs={{ vlans | default([]) | length }},
+          DNS zones={{ dns_zones | default([]) | length }},
+          NTP configured=true
+      tags: always

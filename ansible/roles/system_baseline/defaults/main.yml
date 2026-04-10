@@ -1,0 +1,76 @@
+---
+# CIS Level 1 Baseline Hardening — Defaults
+# Ref: CIS Benchmark for Ubuntu 24.04 / AlmaLinux 9
+
+# CIS compliance level (1 or 2)
+cis_level: 1
+
+# Master toggles for each hardening section
+hardening_sshd_enabled: true
+hardening_sysctl_enabled: true
+hardening_filesystem_enabled: true
+hardening_auditd_enabled: true
+
+# --- SSH Hardening ---
+sshd_config_path: /etc/ssh/sshd_config
+
+sshd_permit_root_login: "no"
+sshd_password_authentication: "no"
+sshd_permit_empty_passwords: "no"
+sshd_x11_forwarding: "no"
+sshd_max_auth_tries: 4
+sshd_client_alive_interval: 300
+sshd_client_alive_count_max: 3
+sshd_login_grace_time: 60
+sshd_log_level: "VERBOSE"
+
+sshd_allowed_ciphers: "aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr"
+sshd_allowed_macs: "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512,hmac-sha2-256"
+sshd_allowed_kex: "curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256"
+
+# --- Kernel / sysctl Hardening ---
+# Set to true only if host acts as a router
+sysctl_is_router: false
+
+sysctl_params:
+  # Network hardening
+  net.ipv4.conf.all.send_redirects: 0
+  net.ipv4.conf.default.send_redirects: 0
+  net.ipv4.conf.all.accept_redirects: 0
+  net.ipv4.conf.default.accept_redirects: 0
+  net.ipv6.conf.all.accept_redirects: 0
+  net.ipv6.conf.default.accept_redirects: 0
+  net.ipv4.conf.all.accept_source_route: 0
+  net.ipv4.conf.default.accept_source_route: 0
+  net.ipv4.conf.all.log_martians: 1
+  net.ipv4.conf.default.log_martians: 1
+  net.ipv4.tcp_syncookies: 1
+  net.ipv4.icmp_echo_ignore_broadcasts: 1
+  net.ipv4.icmp_ignore_bogus_error_responses: 1
+  net.ipv4.conf.all.rp_filter: 1
+  net.ipv4.conf.default.rp_filter: 1
+  # ASLR
+  kernel.randomize_va_space: 2
+  # Core dumps
+  fs.suid_dumpable: 0
+
+# --- Filesystem Hardening ---
+# List of unused filesystems to disable
+disabled_filesystems:
+  - cramfs
+  - freevxfs
+  - squashfs
+  - udf
+  - hfs
+  - hfsplus
+
+# Mount hardening
+tmp_mount_options: "noexec,nosuid,nodev"
+
+# --- Auditd ---
+auditd_package: auditd
+auditd_service: auditd
+auditd_max_log_file: 32
+auditd_max_log_file_action: rotate
+auditd_num_logs: 10
+auditd_space_left_action: email

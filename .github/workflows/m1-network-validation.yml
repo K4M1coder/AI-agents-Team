@@ -68,8 +68,55 @@ jobs:
         run: |
           python scripts/test_network.py --ci --skip-ping
 
-      - name: Optional conftest
+      - name: Install conftest
         run: |
-          if [ -f "policies/network/network.rego" ]; then
-            echo "Conftest step optional in M1 baseline."
+          LATEST=$(curl -s https://api.github.com/repos/open-policy-agent/conftest/releases/latest | grep tag_name | cut -d '"' -f4 | sed 's/v//')
+          wget -q "https://github.com/open-policy-agent/conftest/releases/download/v${LATEST}/conftest_${LATEST}_Linux_x86_64.tar.gz" -O conftest.tar.gz
+          tar xzf conftest.tar.gz
+          sudo mv conftest /usr/local/bin/
+
+      - name: OPA Policy Check (conftest)
+        run: |
+          conftest test terraform/ -p policies/ --all-namespaces
+
+      - name: Terraform init (OPNsense module)
+        run: terraform -chdir=terraform/modules/network/opnsense init -backend=false
+
+      - name: Terraform validate (OPNsense module)
+        run: terraform -chdir=terraform/modules/network/opnsense validate
+
+  nmap-scan:
+    name: Network port scan (self-hosted only)
+    runs-on: self-hosted
+    if: ${{ !contains(runner.name, 'GitHub Actions') }}
+    needs: validate-network-skeleton
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install nmap
+        run: sudo apt-get update && sudo apt-get install -y nmap
+
+      - name: Scan expected ports only
+        run: |
+          EXPECTED_PORTS="22,53,123"
+          echo "Scanning for expected ports: ${EXPECTED_PORTS}"
+
+          # Scan localhost for the expected port set
+          SCAN_RESULT=$(nmap -sT -p ${EXPECTED_PORTS} 127.0.0.1 -oG - 2>/dev/null)
+          echo "${SCAN_RESULT}"
+
+          # Check for unexpected open ports outside our expected set
+          ALL_OPEN=$(nmap -sT -p 1-1024 127.0.0.1 -oG - 2>/dev/null | grep 'Ports:' | grep -oP '\d+/open' | cut -d'/' -f1 || true)
+          UNEXPECTED=""
+          for port in ${ALL_OPEN}; do
+            if ! echo "${EXPECTED_PORTS}" | grep -qw "${port}"; then
+              UNEXPECTED="${UNEXPECTED} ${port}"
+            fi
+          done
+
+          if [ -n "${UNEXPECTED}" ]; then
+            echo "::error::Unexpected open ports found:${UNEXPECTED}"
+            exit 1
           fi
+
+          echo "Only expected ports are open. Scan passed."

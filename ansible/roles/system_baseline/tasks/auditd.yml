@@ -1,0 +1,76 @@
+---
+# Auditd Configuration — CIS Level 1
+# Ref: CIS 4.1.x (Configure System Accounting)
+
+- name: Install auditd
+  ansible.builtin.package:
+    name:
+      - "{{ auditd_package }}"
+      - audispd-plugins
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Install auditd (RedHat)
+  ansible.builtin.package:
+    name:
+      - audit
+      - audit-libs
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Configure auditd.conf
+  ansible.builtin.lineinfile:
+    path: /etc/audit/auditd.conf
+    regexp: "^{{ item.key }}"
+    line: "{{ item.key }} = {{ item.value }}"
+  loop:
+    - { key: "max_log_file", value: "{{ auditd_max_log_file }}" }
+    - { key: "max_log_file_action", value: "{{ auditd_max_log_file_action }}" }
+    - { key: "num_logs", value: "{{ auditd_num_logs }}" }
+    - { key: "space_left_action", value: "{{ auditd_space_left_action }}" }
+  notify: restart auditd
+
+- name: Deploy CIS audit rules
+  ansible.builtin.copy:
+    dest: /etc/audit/rules.d/cis-baseline.rules
+    content: |
+      ## CIS Level 1 Audit Rules
+
+      # Monitor privileged commands
+      -a always,exit -F path=/usr/bin/sudo -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged-sudo
+      -a always,exit -F path=/usr/bin/su -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged-su
+
+      # Monitor file deletions by users
+      -a always,exit -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete
+      -a always,exit -F arch=b32 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete
+
+      # Monitor sudo configuration changes
+      -w /etc/sudoers -p wa -k sudoers
+      -w /etc/sudoers.d/ -p wa -k sudoers
+
+      # Monitor user/group changes
+      -w /etc/passwd -p wa -k identity
+      -w /etc/group -p wa -k identity
+      -w /etc/shadow -p wa -k identity
+      -w /etc/gshadow -p wa -k identity
+
+      # Monitor SSH configuration
+      -w /etc/ssh/sshd_config -p wa -k sshd_config
+
+      # Monitor login/logout events
+      -w /var/log/faillog -p wa -k logins
+      -w /var/log/lastlog -p wa -k logins
+      -w /var/log/tallylog -p wa -k logins
+
+      # Make audit configuration immutable (must be last)
+      -e 2
+    owner: root
+    group: root
+    mode: "0640"
+  notify: restart auditd
+
+- name: Ensure auditd is enabled and running
+  ansible.builtin.service:
+    name: "{{ auditd_service }}"
+    state: started
+    enabled: true

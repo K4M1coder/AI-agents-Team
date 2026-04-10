@@ -1,0 +1,31 @@
+---
+# CIS Level 1 Baseline Hardening — Main task file
+# Imports sub-task files for each hardening domain
+
+- name: Include SSH hardening tasks
+  ansible.builtin.include_tasks: sshd.yml
+  when: hardening_sshd_enabled | bool
+  tags:
+    - sshd
+    - hardening
+
+- name: Include kernel/sysctl hardening tasks
+  ansible.builtin.include_tasks: sysctl.yml
+  when: hardening_sysctl_enabled | bool
+  tags:
+    - sysctl
+    - hardening
+
+- name: Include filesystem hardening tasks
+  ansible.builtin.include_tasks: filesystem.yml
+  when: hardening_filesystem_enabled | bool
+  tags:
+    - filesystem
+    - hardening
+
+- name: Include auditd tasks
+  ansible.builtin.include_tasks: auditd.yml
+  when: hardening_auditd_enabled | bool
+  tags:
+    - auditd
+    - hardening

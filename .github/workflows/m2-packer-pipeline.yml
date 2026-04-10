@@ -1,0 +1,145 @@
+name: m2-packer-pipeline
+
+on:
+  push:
+    paths:
+      - "packer/templates/**"
+    branches: ["main", "project/IAC"]
+  pull_request:
+    paths:
+      - "packer/templates/**"
+  workflow_dispatch:
+
+env:
+  PACKER_VERSION: "1.11.2"
+
+jobs:
+  validate:
+    name: "Validate (${{ matrix.template }})"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        template:
+          - ubuntu-2404
+          - almalinux-9
+          - windows-server-2022
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@main
+        with:
+          version: ${{ env.PACKER_VERSION }}
+
+      - name: Packer init
+        run: packer init packer/templates/${{ matrix.template }}.pkr.hcl
+
+      - name: Packer fmt check
+        run: packer fmt -check packer/templates/${{ matrix.template }}.pkr.hcl
+
+      - name: Packer validate
+        run: |
+          packer validate \
+            -var "proxmox_url=https://validate.example.com:8006/api2/json" \
+            -var "proxmox_token=validate@pam!ci=placeholder" \
+            packer/templates/${{ matrix.template }}.pkr.hcl
+
+  build:
+    name: "Build (${{ matrix.template }})"
+    needs: validate
+    runs-on: self-hosted
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    strategy:
+      fail-fast: false
+      matrix:
+        template:
+          - ubuntu-2404
+          - almalinux-9
+          - windows-server-2022
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@main
+        with:
+          version: ${{ env.PACKER_VERSION }}
+
+      - name: Packer init
+        run: packer init packer/templates/${{ matrix.template }}.pkr.hcl
+
+      - name: Packer build
+        env:
+          PROXMOX_URL: ${{ secrets.PROXMOX_URL }}
+          PROXMOX_TOKEN: ${{ secrets.PROXMOX_TOKEN }}
+        run: |
+          packer build \
+            -var "proxmox_url=${PROXMOX_URL}" \
+            -var "proxmox_token=${PROXMOX_TOKEN}" \
+            -on-error=abort \
+            -timestamp-ui \
+            packer/templates/${{ matrix.template }}.pkr.hcl
+
+  trivy-scan:
+    name: "Trivy Scan (${{ matrix.template }})"
+    needs: build
+    runs-on: self-hosted
+    strategy:
+      fail-fast: false
+      matrix:
+        template:
+          - ubuntu-2404
+          - almalinux-9
+          - windows-server-2022
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Trivy
+        run: |
+          sudo apt-get install -y wget apt-transport-https gnupg
+          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
+          echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb generic main" | sudo tee /etc/apt/sources.list.d/trivy.list
+          sudo apt-get update && sudo apt-get install -y trivy
+
+      - name: Trivy scan on Packer template
+        run: |
+          trivy config packer/templates/${{ matrix.template }}.pkr.hcl \
+            --severity HIGH,CRITICAL \
+            --format json \
+            --output trivy-${{ matrix.template }}.json \
+            --exit-code 0
+
+      - name: Upload Trivy scan results
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-scan-${{ matrix.template }}
+          path: trivy-${{ matrix.template }}.json
+          retention-days: 30
+
+  publish:
+    name: "Publish Results"
+    needs: trivy-scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all scan artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: scan-results/
+
+      - name: Summarize scan results
+        run: |
+          echo "## Packer Pipeline — Trivy Scan Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          for f in scan-results/trivy-scan-*/*.json; do
+            template=$(basename "$f" .json | sed 's/trivy-//')
+            high=$(jq '[.Results[]?.Vulnerabilities[]? | select(.Severity=="HIGH")] | length' "$f" 2>/dev/null || echo "N/A")
+            crit=$(jq '[.Results[]?.Vulnerabilities[]? | select(.Severity=="CRITICAL")] | length' "$f" 2>/dev/null || echo "N/A")
+            echo "| ${template} | HIGH: ${high} | CRITICAL: ${crit} |" >> $GITHUB_STEP_SUMMARY
+          done
+
+      - name: Upload consolidated report
+        uses: actions/upload-artifact@v4
+        with:
+          name: packer-pipeline-report
+          path: scan-results/
+          retention-days: 90

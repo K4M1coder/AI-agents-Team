@@ -1,0 +1,51 @@
+---
+# Filesystem Hardening — CIS Level 1
+# Ref: CIS 1.1.x (Filesystem Configuration)
+
+- name: Disable unused filesystems
+  ansible.builtin.copy:
+    dest: "/etc/modprobe.d/cis-{{ item }}.conf"
+    content: |
+      install {{ item }} /bin/true
+      blacklist {{ item }}
+    owner: root
+    group: root
+    mode: "0644"
+  loop: "{{ disabled_filesystems }}"
+
+- name: Check if /tmp is a separate mount
+  ansible.builtin.command: findmnt /tmp
+  register: tmp_mount_check
+  changed_when: false
+  failed_when: false
+
+- name: Configure /tmp mount options in fstab
+  ansible.posix.mount:
+    path: /tmp
+    src: "tmpfs"
+    fstype: "tmpfs"
+    opts: "defaults,{{ tmp_mount_options }},size=512M"
+    state: mounted
+  when: tmp_mount_check.rc == 0 or ansible_virtualization_type != "docker"
+
+- name: Ensure /var/tmp is bind-mounted from /tmp
+  ansible.posix.mount:
+    path: /var/tmp
+    src: /tmp
+    fstype: none
+    opts: "bind"
+    state: mounted
+  when: tmp_mount_check.rc == 0 or ansible_virtualization_type != "docker"
+
+- name: Set sticky bit on world-writable directories
+  ansible.builtin.shell: |
+    df --local -P | awk '{if (NR!=1) print $6}' | xargs -I '{}' find '{}' -xdev -type d \( -perm -0002 -a ! -perm -1000 \) 2>/dev/null | head -20
+  register: world_writable_dirs
+  changed_when: false
+
+- name: Apply sticky bit to world-writable directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    mode: "a+t"
+  loop: "{{ world_writable_dirs.stdout_lines }}"
+  when: world_writable_dirs.stdout_lines | length > 0
