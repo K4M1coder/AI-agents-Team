@@ -88,7 +88,6 @@ jobs:
   nmap-scan:
     name: Network port scan (self-hosted only)
     runs-on: self-hosted
-    if: ${{ !contains(runner.name, 'GitHub Actions') }}
     needs: validate-network-skeleton
     steps:
       - uses: actions/checkout@v4
