@@ -1,0 +1,8 @@
+# {{ ansible_managed }}
+[Match]
+Name=vlan{{ item.id }}
+
+[Network]
+{% if item.address is defined %}
+Address={{ item.address }}
+{% endif %}

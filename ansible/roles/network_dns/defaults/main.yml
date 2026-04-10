@@ -1,0 +1,31 @@
+---
+# DNS configuration defaults
+dns_server_package: pdns-server
+dns_backend_package: pdns-backend-sqlite3
+dns_service_name: pdns
+
+dns_listen_address: "0.0.0.0"
+dns_listen_port: 53
+
+dns_allow_axfr_ips:
+  - "127.0.0.0/8"
+
+dns_backend: gsqlite3
+dns_sqlite_database: /var/lib/powerdns/pdns.sqlite3
+
+dns_zones: []
+#  - name: "dev.infra.local"
+#    type: "NATIVE"
+#    records:
+#      - name: "ns1.dev.infra.local"
+#        type: "A"
+#        content: "10.20.10.2"
+#        ttl: 3600
+
+dns_forwarders:
+  - "1.1.1.1"
+  - "8.8.8.8"
+
+dns_use_bind: false
+dns_bind_package: bind9
+dns_bind_service_name: named

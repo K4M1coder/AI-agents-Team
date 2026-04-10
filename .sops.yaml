@@ -1,0 +1,10 @@
+creation_rules:
+  - path_regex: secrets/.*\.enc\.ya?ml$
+    age:
+      - age1replacewithrealrecipientxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  - path_regex: secrets/.*\.enc\.json$
+    age:
+      - age1replacewithrealrecipientxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  - path_regex: secrets/.*\.age$
+    age:
+      - age1replacewithrealrecipientxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

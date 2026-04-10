@@ -1,0 +1,57 @@
+---
+- name: Install VLAN package (Debian)
+  ansible.builtin.package:
+    name: "{{ vlan_package_name }}"
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Load 8021q kernel module
+  community.general.modprobe:
+    name: 8021q
+    state: present
+  when: ansible_os_family in ["Debian", "RedHat"]
+
+- name: Persist 8021q module on boot
+  ansible.builtin.lineinfile:
+    path: /etc/modules-load.d/8021q.conf
+    line: 8021q
+    create: true
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Deploy VLAN netdev units (systemd-networkd)
+  ansible.builtin.template:
+    src: vlan.netdev.j2
+    dest: "/etc/systemd/network/10-vlan{{ item.id }}.netdev"
+    owner: root
+    group: root
+    mode: "0644"
+  loop: "{{ vlans }}"
+  loop_control:
+    label: "VLAN {{ item.id }} ({{ item.name }})"
+  when: vlan_use_networkd
+  notify: Restart networkd
+
+- name: Deploy VLAN network units (systemd-networkd)
+  ansible.builtin.template:
+    src: vlan.network.j2
+    dest: "/etc/systemd/network/10-vlan{{ item.id }}.network"
+    owner: root
+    group: root
+    mode: "0644"
+  loop: "{{ vlans }}"
+  loop_control:
+    label: "VLAN {{ item.id }} ({{ item.name }})"
+  when: vlan_use_networkd
+  notify: Restart networkd
+
+- name: Deploy Netplan VLAN config
+  ansible.builtin.template:
+    src: netplan-vlans.yaml.j2
+    dest: /etc/netplan/60-vlans.yaml
+    owner: root
+    group: root
+    mode: "0600"
+  when: vlan_use_netplan
+  notify: Apply netplan

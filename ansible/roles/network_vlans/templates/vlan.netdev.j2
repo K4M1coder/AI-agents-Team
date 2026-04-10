@@ -1,0 +1,8 @@
+# {{ ansible_managed }}
+[NetDev]
+Name=vlan{{ item.id }}
+Kind=vlan
+Description={{ item.description | default('VLAN ' ~ item.id ~ ' - ' ~ item.name) }}
+
+[VLAN]
+Id={{ item.id }}

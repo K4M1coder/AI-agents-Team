@@ -1,0 +1,12 @@
+---
+- name: Restart PowerDNS
+  ansible.builtin.service:
+    name: "{{ dns_service_name }}"
+    state: restarted
+  when: not dns_use_bind
+
+- name: Restart bind
+  ansible.builtin.service:
+    name: "{{ dns_bind_service_name }}"
+    state: restarted
+  when: dns_use_bind

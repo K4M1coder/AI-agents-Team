@@ -1,0 +1,17 @@
+groups:
+  - name: network-mvp
+    rules:
+      - alert: NetworkAvailabilityLow
+        expr: probe_success < 0.99
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Network availability below target"
+      - alert: NetworkLatencyHigh
+        expr: probe_duration_seconds > 0.5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Network latency above 500ms"

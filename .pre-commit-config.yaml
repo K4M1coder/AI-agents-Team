@@ -1,0 +1,54 @@
+default_language_version:
+  python: python3.11
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-merge-conflict
+      - id: detect-private-key
+
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.96.1
+    hooks:
+      - id: terraform_fmt
+        args: ["-diff"]
+      - id: terraform_validate
+        args: ["--hook-config=--retry-once-with-cleanup=true"]
+      - id: terraform_tflint
+        args:
+          - "--args=--config=__GIT_WORKING_DIR__/.tflint.hcl"
+
+  - repo: https://github.com/ansible/ansible-lint
+    rev: v24.10.0
+    hooks:
+      - id: ansible-lint
+        files: \.(yml|yaml)$
+        exclude: >-
+          (?x)^(
+            \.github/.*|
+            observability/.*|
+            helm/.*
+          )$
+
+  - repo: https://github.com/aquasecurity/trivy
+    rev: v0.58.0
+    hooks:
+      - id: trivy-config
+        name: Trivy config scan
+        entry: trivy config
+        language: system
+        pass_filenames: true
+        types: [file]
+        files: \.(tf|yml|yaml|json|Dockerfile)$
+
+  - repo: local
+    hooks:
+      - id: validate-baseline
+        name: Validate repository baseline
+        entry: python scripts/validate_baseline.py
+        language: system
+        pass_filenames: false

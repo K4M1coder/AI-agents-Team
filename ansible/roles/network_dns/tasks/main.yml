@@ -1,0 +1,89 @@
+---
+# PowerDNS installation and configuration (default)
+- name: Install PowerDNS (Debian)
+  ansible.builtin.package:
+    name:
+      - "{{ dns_server_package }}"
+      - "{{ dns_backend_package }}"
+    state: present
+  when:
+    - ansible_os_family == "Debian"
+    - not dns_use_bind
+
+- name: Install PowerDNS (RedHat)
+  ansible.builtin.package:
+    name:
+      - pdns
+      - pdns-backend-sqlite
+    state: present
+  when:
+    - ansible_os_family == "RedHat"
+    - not dns_use_bind
+
+- name: Ensure PowerDNS database directory exists
+  ansible.builtin.file:
+    path: "{{ dns_sqlite_database | dirname }}"
+    state: directory
+    owner: pdns
+    group: pdns
+    mode: "0750"
+  when: not dns_use_bind
+
+- name: Deploy PowerDNS configuration
+  ansible.builtin.template:
+    src: pdns.conf.j2
+    dest: /etc/powerdns/pdns.conf
+    owner: root
+    group: root
+    mode: "0640"
+    backup: true
+  when: not dns_use_bind
+  notify: Restart PowerDNS
+
+- name: Ensure PowerDNS is enabled and running
+  ansible.builtin.service:
+    name: "{{ dns_service_name }}"
+    state: started
+    enabled: true
+  when: not dns_use_bind
+
+# Bind installation (alternative)
+- name: Install bind (Debian)
+  ansible.builtin.package:
+    name:
+      - "{{ dns_bind_package }}"
+      - bind9-utils
+    state: present
+  when:
+    - ansible_os_family == "Debian"
+    - dns_use_bind
+
+- name: Install bind (RedHat)
+  ansible.builtin.package:
+    name:
+      - bind
+      - bind-utils
+    state: present
+  when:
+    - ansible_os_family == "RedHat"
+    - dns_use_bind
+
+- name: Deploy bind named.conf.options
+  ansible.builtin.template:
+    src: named.conf.options.j2
+    dest: /etc/bind/named.conf.options
+    owner: root
+    group: bind
+    mode: "0640"
+    backup: true
+  when:
+    - dns_use_bind
+    - ansible_os_family == "Debian"
+  notify: Restart bind
+
+- name: Ensure bind is enabled and running
+  ansible.builtin.service:
+    name: "{{ dns_bind_service_name }}"
+    state: started
+    enabled: true
+  when: dns_use_bind

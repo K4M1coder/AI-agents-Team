@@ -1,0 +1,23 @@
+# Managed by Ansible — network_ntp role
+# Do not edit manually.
+
+{% for ntp in ntp_servers %}
+server {{ ntp.server }} {{ ntp.options }}
+{% endfor %}
+
+# Allow stepping the clock on first sync
+makestep {{ ntp_makestep_threshold }} {{ ntp_makestep_limit }}
+
+# Record the rate at which the system clock gains/losses time
+driftfile /var/lib/chrony/drift
+
+# Allow NTP client access from local networks
+{% for net in ntp_allowed_networks %}
+allow {{ net }}
+{% endfor %}
+
+# Serve time even if not synchronized
+local stratum 10
+
+# Log tracking, measurements, and statistics
+logdir /var/log/chrony

@@ -1,0 +1,19 @@
+# Managed by Ansible — network_dns role (PowerDNS)
+# Do not edit manually.
+
+launch={{ dns_backend }}
+gsqlite3-database={{ dns_sqlite_database }}
+
+local-address={{ dns_listen_address }}
+local-port={{ dns_listen_port }}
+
+allow-axfr-ips={{ dns_allow_axfr_ips | join(',') }}
+
+daemon=yes
+guardian=yes
+setgid=pdns
+setuid=pdns
+
+{% if dns_forwarders | length > 0 %}
+recursor={{ dns_forwarders[0] }}
+{% endif %}

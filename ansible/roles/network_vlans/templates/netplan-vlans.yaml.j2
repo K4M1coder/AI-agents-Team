@@ -1,0 +1,13 @@
+# {{ ansible_managed }}
+network:
+  version: 2
+  vlans:
+{% for vlan in vlans %}
+    vlan{{ vlan.id }}:
+      id: {{ vlan.id }}
+      link: {{ vlan.parent_interface }}
+{% if vlan.address is defined %}
+      addresses:
+        - {{ vlan.address }}
+{% endif %}
+{% endfor %}

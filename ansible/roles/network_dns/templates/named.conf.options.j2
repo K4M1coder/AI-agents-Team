@@ -1,0 +1,21 @@
+// Managed by Ansible — network_dns role (bind)
+// Do not edit manually.
+
+options {
+    directory "/var/cache/bind";
+
+    listen-on { {{ dns_listen_address }}; };
+    listen-on-v6 { none; };
+
+    forwarders {
+{% for fwd in dns_forwarders %}
+        {{ fwd }};
+{% endfor %}
+    };
+
+    dnssec-validation auto;
+    auth-nxdomain no;
+
+    allow-query { any; };
+    recursion yes;
+};
