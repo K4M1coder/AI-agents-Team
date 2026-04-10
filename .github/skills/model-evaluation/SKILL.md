@@ -129,7 +129,7 @@ For model cards and team communication, produce:
 ## Evaluation Summary — <model-name> v<version>
 
 | Benchmark | Score | Baseline | Delta | Notes |
-|-----------|-------|----------|-------|-------|
+| --- | --- | --- | --- | --- |
 | MMLU (5-shot) | 0.72 | 0.70 | +2% | No contamination |
 | HumanEval (0-shot) | 0.45 | 0.42 | +3% | Pass@1 |
 
@@ -154,7 +154,7 @@ For model cards and team communication, produce:
 ## Agent Integration
 
 | Agent | Relationship | Usage |
-|-------|-------------|-------|
+| --- | --- | --- |
 | `executant-ml-researcher` | **Primary consumer** | Architecture comparison, SOTA tracking, benchmark triage |
 | `executant-ml-engineer` | **Primary consumer** | Checkpoint validation, fine-tuning regression gates |
 | `executant-inference-engineer` | **Contextual** | Post-quantization quality validation, latency-quality tradeoff |
