@@ -1,0 +1,278 @@
+## Plan: Completing Your IaC Requirements Document
+
+**Goal:** Complete and enrich your multi-layer IaC requirements specification, focusing on the observability layer and improving the overall document quality.
+
+**Project manager ownership:** `agent-project-manager-delivery` (architecture definition + documentation for a full-stack IaC project)
+
+**Agents involved:**
+- `executant-observability-ops` — complete observability stack selection
+- `executant-infra-architect` — review all layers, suggest missing tools/patterns, structure the IaC document
+
+**Task manifest:**
+
+| ID | Agent | Task | Depends on |
+|----|-------|------|------------|
+| T1 | `executant-observability-ops` | Recommend observability stack for the described infrastructure | — |
+| T2 | `executant-infra-architect` | Review all 6 layers and produce a complete, structured IaC requirements document | T1 |
+
+**Estimated pipeline:**
+```
+agent-manager
+  └─→ agent-project-manager-delivery
+        ├─→ executant-observability-ops (T1) ──┐
+        └─→ executant-infra-architect   (T2) ──┘→ merged document
+```
+
+**Risk:** Scope creep — keeping recommendations tooling-realistic and IaC-actionable rather than aspirational.
+
+---
+
+Dispatching now: 
+
+Complete IaC requirements document
+
+Read memory [](file:///c%3A/Users/cthed/AppData/Roaming/Code/User/workspaceStorage/3fad9f0d7a6bd81eede462b4bb67f2a4/GitHub.copilot-chat/memory-tool/memories/repo/hierarchy_model.md)
+
+Read memory [](file:///c%3A/Users/cthed/AppData/Roaming/Code/User/workspaceStorage/3fad9f0d7a6bd81eede462b4bb67f2a4/GitHub.copilot-chat/memory-tool/memories/repo/governance_convention.md)
+
+Read agent output file
+
+Read [](file:///c%3A/Users/cthed/AppData/Roaming/Code/User/workspaceStorage/3fad9f0d7a6bd81eede462b4bb67f2a4/GitHub.copilot-chat/chat-session-resources/c24427f3-5cf0-4517-800f-dcfcf014f8a3/toolu_bdrk_013s2mHcFdZs5yq1Jst3QywN__vscode-1775445467750/content.txt)
+
+Based on the output from the delivery pipeline, here is the complete, enriched IaC requirements document — including a fully recommended observability layer:
+
+---
+
+## Document complet — Brief Projet IaC / Complete IaC Project Brief
+
+---
+
+### 🎯 Objectif / Objective
+
+Construire une plateforme Infrastructure as Code (IaC) complète permettant de déployer, configurer et gérer l'ensemble des couches d'infrastructure, du réseau jusqu'à l'observabilité, sur des environnements on-premises, hybrides et multi-cloud.
+
+Build a complete Infrastructure as Code (IaC) platform to deploy, configure, and manage all infrastructure layers — from network to observability — across on-premises, hybrid, and multi-cloud environments.
+
+---
+
+### 🛠️ Outillage IaC transverse / Cross-Layer IaC Tooling
+
+> Ces outils sont utilisés par toutes les couches.
+
+| Domaine | Outils |
+|---|---|
+| Provisioning déclaratif | Terraform, OpenTofu |
+| Configuration management | Ansible, Ansible AWX/AAP |
+| Golden images | Packer |
+| GitOps & CD | ArgoCD, Flux CD |
+| Pipeline CI/CD | GitHub Actions, Jenkins, GitLab CI |
+| Registry & artefacts | Harbor, Nexus, Artifactory |
+| Templating | Helm, Kustomize |
+| Policy as Code | OPA/Gatekeeper, Kyverno |
+
+---
+
+### 1️⃣ COUCHE RÉSEAU / Network Layer
+
+| Catégorie | Outils / Plateformes |
+|---|---|
+| Switching & routing (entreprise) | Arista EOS, Cisco IOS/NX-OS, Mellanox ONYX/Cumulus |
+| Switching & routing (SMB/campus) | Ubiquiti UniFi (Network Application) |
+| Firewall & UTM | Fortinet FortiGate, OPNsense |
+| SDN on-premises | Proxmox SDN, VMware NSX-T |
+| Ingress Kubernetes | Kubernetes Ingress (NGINX, Traefik) |
+| Reverse proxy / load balancer | Traefik, HAProxy, NGINX |
+| ZTNA | Zero Trust Network Access (Cloudflare Access, Zscaler, ou solution interne Tailscale) |
+| Automation réseau | Netmiko, NAPALM, Nornir, Ansible Network modules |
+
+---
+
+### 2️⃣ COUCHE VIRTUALISATION / Virtualisation Layer
+
+| Catégorie | Outils / Plateformes |
+|---|---|
+| Hyperviseurs on-premises | VMware vSphere/ESXi, Proxmox VE 9.1, XCP-ng (Vates.tech) |
+| Gestion Proxmox/XCP | Vates XO (Xen Orchestra), Proxmox VE API + Terraform provider |
+| Containers | Docker, containerd |
+| Orchestration containers | Kubernetes (K8s, K3s, RKE2), KubeVirt |
+| Cloud public | AWS, Azure, GCP, OVH Cloud |
+| ZTNA / accès sécurisé | Tailscale, Cloudflare WARP |
+| IaC providers | Terraform (vsphere, proxmox, aws, azurerm, google, ovh providers) |
+
+---
+
+### 3️⃣ COUCHE SYSTÈME / System Layer
+
+| Catégorie | Systèmes |
+|---|---|
+| Windows Server | Windows Server 2019 / 2022 / 2025 |
+| Windows Desktop | Windows 10 / 11 |
+| Enterprise Linux | RHEL 9, AlmaLinux 9 |
+| Linux général | Ubuntu 22.04/24.04 LTS, Debian 12 |
+| Linux desktop | Ubuntu Desktop, Fedora Workstation |
+| Linux minimal / containers | Alpine Linux |
+| macOS | macOS Sonoma / Sequoia (endpoints) |
+| Domaine Windows alternatif | Zentyal Server |
+| Hyperviseur bare-metal | VMware ESXi (standalone ou vSphere cluster) |
+| Automatisation OS | Ansible, cloud-init, Kickstart, Unattend.xml, DSC |
+
+---
+
+### 4️⃣ COUCHE SERVICES / Service Layer
+
+| Catégorie | Outils / Plateformes |
+|---|---|
+| Annuaires & identité | Active Directory (AD DS), Microsoft Entra ID (Azure AD), OpenLDAP |
+| Sync/fédération identité | Azure AD Connect, Keycloak (OIDC/SAML broker) |
+| VPN | WireGuard, OpenVPN, IPSec (StrongSwan) |
+| ZTNA / mesh réseau | Tailscale + Headscale (self-hosted control plane) |
+| PKI | ADCS (Windows), HashiCorp Vault PKI, Step-CA, CFSSL |
+| Gestion des secrets | HashiCorp Vault, OpenBao, SOPS + age, External Secrets Operator |
+| SIEM | Wazuh, Elastic SIEM, Microsoft Sentinel |
+| Microsoft 365 | Exchange Online, Teams, SharePoint, Intune, Defender |
+| Atlassian Cloud | Jira, Confluence, Bitbucket, Jira Assets (ITAM) |
+| Collaboration interne | Mattermost ou Rocket.Chat (option on-prem) |
+| DNS/DHCP | Windows DNS/DHCP, PowerDNS, Infoblox (DDI) |
+| NTP | chrony, Windows NTP |
+
+---
+
+### 5️⃣ COUCHE UTILISATEURS & PERMISSIONS / User & Permission Layer (IAM)
+
+| Catégorie | Outils / Plateformes |
+|---|---|
+| IAM centralisé | Keycloak (SSO OIDC/SAML, MFA, fédération), Microsoft Entra ID |
+| PAM (accès privilégiés) | HashiCorp Vault, CyberArk, BeyondTrust, Teleport |
+| RBAC Kubernetes | Kubernetes RBAC natif + OPA/Gatekeeper |
+| RBAC Cloud | AWS IAM, Azure RBAC, GCP IAM |
+| Gouvernance des accès | SailPoint, OpenIAM, ou Keycloak + workflows |
+| MFA | Duo Security, Microsoft Authenticator, TOTP (FreeOTP) |
+| Audit & traçabilité | Wazuh, Teleport audit log, Vault audit log |
+
+---
+
+### 6️⃣ COUCHE OBSERVABILITÉ / Observability Layer ✅
+
+> Couche complétée — couvre metrics, logs, traces, alerting, network monitoring, synthétique, et FinOps.
+
+#### 6.1 Métriques / Metrics
+| Outil | Rôle |
+|---|---|
+| **Prometheus** | Collecte de métriques (Kubernetes, services) |
+| **VictoriaMetrics** | Stockage longue durée, haute performance, compatible PromQL |
+| **Grafana** | Dashboards & visualisation unifiée |
+| **Thanos / Mimir** | Fédération multi-cluster, haute disponibilité Prometheus |
+| **Node Exporter / cAdvisor** | Métriques OS et containers |
+| **kube-state-metrics** | État des ressources Kubernetes |
+| **VMware vSphere exporter / Proxmox exporter** | Métriques hyperviseurs |
+
+#### 6.2 Logs / Logging
+| Outil | Rôle |
+|---|---|
+| **Loki + Promtail / Alloy** | Stack de logs légère, intégrée Grafana |
+| **Fluent Bit / Fluentd** | Collecte & routage de logs (agents légers) |
+| **OpenSearch / Elasticsearch** | Indexation et recherche de logs (ELK/OpenSearch stack) |
+| **Graylog** | SIEM-lite, centralisation logs, alerting |
+| **Windows Event Forwarding** | Collecte logs Windows → WEF → Graylog/OpenSearch |
+
+#### 6.3 Traces / Distributed Tracing
+| Outil | Rôle |
+|---|---|
+| **OpenTelemetry (OTel Collector)** | Standard d'instrumentation, collecte traces/metrics/logs |
+| **Grafana Tempo** | Stockage traces, intégré Grafana |
+| **Jaeger** | Tracing distribué (alternative à Tempo) |
+
+#### 6.4 Alerting & Incident Management
+| Outil | Rôle |
+|---|---|
+| **Alertmanager** | Gestion & routage des alertes Prometheus |
+| **Grafana OnCall** | On-call management intégré |
+| **PagerDuty / OpsGenie** | Escalade d'incidents (option SaaS) |
+| **Wazuh** | Alertes sécurité, détection d'intrusion, SIEM |
+
+#### 6.5 Monitoring Réseau / Network Monitoring
+| Outil | Rôle |
+|---|---|
+| **LibreNMS** | Monitoring SNMP, autodiscovery réseau, Arista/Cisco/Fortinet |
+| **Zabbix** | Monitoring infra hybride, agents Windows/Linux, SNMP |
+| **Netdata** | Monitoring temps réel OS & services |
+| **PRTG** (option) | Monitoring réseau Windows-centric |
+| **Telegraf + InfluxDB** | Collecte métriques réseau & performance |
+
+#### 6.6 Monitoring Synthétique & Uptime / Synthetic Monitoring
+| Outil | Rôle |
+|---|---|
+| **Blackbox Exporter (Prometheus)** | Sondes HTTP/TCP/ICMP/DNS |
+| **Uptime Kuma** | Monitoring uptime self-hosted, UI simple |
+| **Grafana Synthetic Monitoring** | Sondes avancées intégrées Grafana Cloud |
+| **Gatus** | Health checks as code |
+
+#### 6.7 Profiling & Performance
+| Outil | Rôle |
+|---|---|
+| **Pyroscope (Grafana)** | Profiling continu applications |
+| **Elastic APM** | Application Performance Monitoring |
+
+#### 6.8 FinOps & Cost Observability
+| Outil | Rôle |
+|---|---|
+| **OpenCost / Kubecost** | Coûts Kubernetes par namespace/team |
+| **CloudHealth / Apptio** | FinOps multi-cloud (AWS/Azure/GCP/OVH) |
+| **Infracost** | Estimation coûts IaC Terraform avant apply |
+
+#### 6.9 Stack recommandée (résumé)
+```
+Metrics:  Prometheus + VictoriaMetrics + Grafana
+Logs:     Loki + Fluent Bit + OpenSearch
+Traces:   OpenTelemetry Collector + Grafana Tempo
+Network:  LibreNMS + Zabbix + Blackbox Exporter
+Security: Wazuh (SIEM + EDR)
+Alerting: Alertmanager + Grafana OnCall
+FinOps:   OpenCost + Infracost
+```
+
+---
+
+### 📋 Résumé des couches / Layers Summary
+
+```
+┌─────────────────────────────────────────────────────┐
+│  IAC PLATFORM                                        │
+│  Terraform · OpenTofu · Ansible · ArgoCD · Helm      │
+├─────────────────────────────────────────────────────┤
+│  6. OBSERVABILITY                                    │
+│  Prometheus · Loki · Tempo · Grafana · OTel          │
+│  VictoriaMetrics · LibreNMS · Wazuh · OpenCost       │
+├─────────────────────────────────────────────────────┤
+│  5. IAM / USER & PERMISSIONS                        │
+│  Keycloak · Entra ID · Vault PAM · Teleport          │
+├─────────────────────────────────────────────────────┤
+│  4. SERVICES                                         │
+│  AD · EntraID · OpenLDAP · Vault · Step-CA           │
+│  Tailscale/Headscale · Wazuh · M365 · Atlassian      │
+├─────────────────────────────────────────────────────┤
+│  3. SYSTEM                                           │
+│  WinServer · RHEL · AlmaLinux · Ubuntu · Debian      │
+│  Alpine · macOS · Zentyal · ESXi                     │
+├─────────────────────────────────────────────────────┤
+│  2. VIRTUALISATION                                   │
+│  vSphere · Proxmox 9.1 · XCP-ng · Docker · K8s       │
+│  KubeVirt · Vates · AWS · Azure · GCP · OVH          │
+├─────────────────────────────────────────────────────┤
+│  1. NETWORK                                          │
+│  Arista · Cisco · Fortinet · Mellanox · Ubiquiti     │
+│  OPNsense · ProxmoxSDN · NSX · Traefik · Ingress     │
+└─────────────────────────────────────────────────────┘
+```
+
+---
+
+### Quelques notes importantes / Key Notes
+
+1. **Keycloak** est manquant de votre liste IAM — c'est le pivot SSO/OIDC/SAML pour fédérer AD, EntraID et OpenLDAP.
+2. **Terraform providers** couvrent nativement Proxmox, vSphere, XCP-ng, AWS, Azure, GCP, OVH, Fortinet, et Kubernetes.
+3. **OpenTelemetry** est le standard unified pour ne pas être vendor-locked en observabilité.
+4. **Wazuh** joue à la fois dans la couche Services (SIEM) et Observabilité (sécurité/audit) — un seul déploiement couvre les deux.
+5. **Headscale** (self-hosted Tailscale control plane) est essentiel pour ne pas dépendre du SaaS Tailscale en environnement sensible.
+
+Ce document peut servir de base pour votre `README.md` de projet IaC ou votre brief architectural. Voulez-vous que je génère la structure de répertoires Terraform/Ansible correspondante ?
