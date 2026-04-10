@@ -4,7 +4,7 @@ Per-request working memory for the agent team. Each active request gets its own 
 
 ## Structure
 
-```
+```text
 dynamic/
 ├── README.md              # This file
 └── <request-id>/          # One folder per request
@@ -17,7 +17,7 @@ dynamic/
 
 ### Folder Naming
 
-```
+```text
 <YYYY-MM-DD>_<short-descriptor>
 ```
 
@@ -66,7 +66,7 @@ Examples:
 ## Lifecycle
 
 | Phase | Action | Who |
-|-------|--------|-----|
+| --- | --- | --- |
 | **Create** | New folder when request starts | Assigned agent |
 | **Update** | Progress notes during execution | Working agent(s) |
 | **Complete** | Mark status=completed, extract lessons → static/ | Assigned agent |

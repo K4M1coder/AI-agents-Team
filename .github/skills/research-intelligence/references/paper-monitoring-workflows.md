@@ -196,10 +196,10 @@ Score each paper dimension 1–5 before investing analysis time.
 ## Architecture & Training
 
 ### [Paper Title] (arxiv:XXXX.XXXXX)
-**Authors**: A, B, C — **Lab**: [Lab Name]  
-**TL;DR**: One sentence.  
-**Key Result**: Benchmark / metric / comparison.  
-**Reproducibility**: Code at [URL] / Not released  
+**Authors**: A, B, C — **Lab**: [Lab Name]
+**TL;DR**: One sentence.
+**Key Result**: Benchmark / metric / comparison.
+**Reproducibility**: Code at [URL] / Not released
 **Action**: [Assigned to / Next step]
 
 ---

@@ -4,7 +4,7 @@ Local memory for the AI agent team, divided into two scopes.
 
 ## Structure
 
-```
+```text
 .github/memory/
 ├── static/       # Durable team knowledge — always available
 ├── dynamic/      # Working memory — per-request task state

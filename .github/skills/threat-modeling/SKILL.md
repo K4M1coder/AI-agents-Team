@@ -47,7 +47,7 @@ Draw a Level-0 and Level-1 DFD with these elements:
 | Arrow | Data flow (label with data type) | JWT token, model output, file upload |
 | Dashed line | Trust boundary | Internet / internal network |
 
-```
+```text
 [User] --HTTP/S--> [API Gateway] --gRPC--> [Inference Service] --read/write--> [Model Store]
                         |
                    Trust boundary
@@ -140,11 +140,11 @@ When the system includes ML inference, training pipelines, or model registries, 
 
 ### Threat Register
 | ID | Category | Target | Description | DREAD | Priority | Mitigation | Status |
-|----|----------|--------|-------------|-------|----------|------------|--------|
+| --- | --- | --- | --- | --- | --- | --- | --- |
 
 ### Accepted Risks
 | ID | Rationale | Owner | Review Date |
-|----|-----------|-------|-------------|
+| --- | --- | --- | --- |
 ```
 
 Store in `.github/memory/static/` or the project's security documentation.

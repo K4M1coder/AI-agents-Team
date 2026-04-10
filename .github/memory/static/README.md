@@ -5,7 +5,7 @@ Durable knowledge the team must always have access to.
 ## What Belongs Here
 
 | Category | Example | NOT here (use instead) |
-|----------|---------|----------------------|
+| --- | --- | --- |
 | Architecture decisions | Team structure rationale, audit conclusions | ADRs → `executant-docs-ops` |
 | Verified conventions | Naming patterns, branching rules | Governance → `GOVERNANCE.md` |
 | Lessons learned | Past failures, edge cases discovered | Incident reports → `executant-sre-ops` |
@@ -22,7 +22,7 @@ Durable knowledge the team must always have access to.
 
 ## Naming Convention
 
-```
+```text
 <topic>.md
 ```
 
