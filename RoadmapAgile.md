@@ -25,7 +25,7 @@ HARDENING                                                                       
 
 **Objectif :** Mettre en place le socle IaC : structure des dépôts, conventions, CI/CD skeleton, et bootstrap des secrets. Rien ne peut être déployé sans ce milestone.
 
-### Livrables
+### Livrables - M0
 
 - Structure monorepo : `terraform/`, `ansible/`, `packer/`, `helm/`, `docs/`, `.github/workflows/`
 - Branching strategy documentée (trunk-based + feature branches + env branches `dev/staging/prod`)
@@ -35,7 +35,7 @@ HARDENING                                                                       
 - OPA/Kyverno policies minimales (no hardcoded secrets, required tags, naming convention)
 - Pre-commit hooks : `tflint`, `terraform fmt`, `ansible-lint`, `detect-secrets`
 
-### Gate de sortie / Definition of Done
+### Gate de sortie / Definition of Done - M0
 
 - [ ] `terraform validate` passe sur tous les modules skeleton
 - [ ] Pipeline CI/CD s'exécute sans erreur sur une PR de test
@@ -43,7 +43,7 @@ HARDENING                                                                       
 - [ ] Secret bootstrap documenté et rejouable from scratch
 - [ ] Peer review effectuée par au moins 2 agents (code-reviewer + security-ops)
 
-### Agents propriétaires
+### Agents propriétaires - M0
 
 | Rôle | Agent |
 | --- | --- |
@@ -57,7 +57,7 @@ HARDENING                                                                       
 
 **Objectif :** Déployer le backbone réseau minimal — firewall, segmentation VLAN, DNS/NTP — entièrement piloté par IaC.
 
-### Livrables
+### Livrables - M1
 
 - Module Terraform `network/opnsense` — provisioning firewall OPNsense via API
 - Module Ansible `network/vlans` — VLANs management, MGMT/PROD/DMZ/OOB
@@ -65,7 +65,7 @@ HARDENING                                                                       
 - Documentation VLAN scheme + firewall ruleset as code
 - Tests réseau automatisés (Netmiko + Python scripts de validation)
 
-### Gate de sortie
+### Gate de sortie  - M1
 
 - [ ] VLAN MGMT isolé, VLAN PROD joignable depuis MGMT uniquement
 - [ ] Firewall règles appliquées via IaC, vérifiables par `terraform plan` = no diff
@@ -73,7 +73,7 @@ HARDENING                                                                       
 - [ ] NTP synchronisé sur tous les équipements
 - [ ] Scan de vulnérabilités réseau : Nmap, aucun port non autorisé ouvert
 
-### Agents propriétaires
+### Agents propriétaires - M1
 
 | Rôle | Agent |
 | --- | --- |
@@ -87,7 +87,7 @@ HARDENING                                                                       
 
 **Objectif :** Provisionner un cluster hyperviseur (Proxmox 9.1 ou vSphere) depuis IaC et produire des golden images testées.
 
-### Livrables
+### Livrables - M2
 
 - Module Terraform `compute/proxmox` (provider `bpg/proxmox`) ou `compute/vsphere`
 - Packer templates : Ubuntu 24.04, AlmaLinux 9, Windows Server 2022
@@ -95,7 +95,7 @@ HARDENING                                                                       
 - Module Ansible `system/baseline` — hardening CIS niveau 1 appliqué sur golden images
 - `cloud-init` intégré pour customisation at deploy time
 
-### Gate de sortie
+### Gate de sortie - M2
 
 - [ ] VM Ubuntu déployée en < 5 min via `terraform apply`
 - [ ] VM Windows Server déployée en < 10 min via `terraform apply`
@@ -103,7 +103,7 @@ HARDENING                                                                       
 - [ ] Testinfra : tests sur la VM déployée (ssh, package baseline, NTP, DNS)
 - [ ] `terraform destroy` propre, aucun orphan
 
-### Agents propriétaires
+### Agents propriétaires - M2
 
 | Rôle | Agent |
 | --- | --- |
@@ -117,7 +117,7 @@ HARDENING                                                                       
 
 **Objectif :** Déployer un cluster Kubernetes production-grade (RKE2) et le socle GitOps (ArgoCD + Harbor + Traefik).
 
-### Livrables
+### Livrables - M3
 
 - Module Terraform `kubernetes/rke2-cluster` (VMs issues de M2)
 - Helm chart / ArgoCD ApplicationSet : déploiement ArgoCD lui-même (bootstrap)
@@ -126,7 +126,7 @@ HARDENING                                                                       
 - `kube-bench` CIS scores dans le pipeline
 - Namespace structure + RBAC de base
 
-### Gate de sortie
+### Gate de sortie - M3
 
 - [ ] `kube-bench` : score CIS >= niveau 1 sur control plane et workers
 - [ ] Application de démonstration déployée depuis Git via ArgoCD en < 3 min
@@ -134,7 +134,7 @@ HARDENING                                                                       
 - [ ] `trivy image` : 0 CVE critique sur l'image de démo
 - [ ] Rollback validé : ArgoCD rollback testé
 
-### Agents propriétaires
+### Agents propriétaires - M3
 
 | Rôle | Agent |
 | --- | --- |
@@ -148,7 +148,7 @@ HARDENING                                                                       
 
 **Objectif :** Déployer le socle identité (AD + Keycloak SSO), PKI interne, et Vault secrets management — fédérant toutes les plateformes.
 
-### Livrables
+### Livrables - M4
 
 - Module Ansible `identity/active-directory` — AD DS, DNS AD, GPO baseline
 - Module Terraform `identity/keycloak` — realms, fédération AD, clients OIDC K8s
@@ -157,7 +157,7 @@ HARDENING                                                                       
 - External Secrets Operator déployé sur K8s
 - Teleport pour accès SSH/K8s audité
 
-### Gate de sortie
+### Gate de sortie - M4
 
 - [ ] Login SSO Keycloak depuis AD fonctionne (LDAP bind)
 - [ ] `kubectl` via OIDC Keycloak — authentification K8s centralisée
@@ -166,7 +166,7 @@ HARDENING                                                                       
 - [ ] Vault audit log actif, Teleport session recording actif
 - [ ] Wazuh alerte sur tentative auth AD échouée
 
-### Agents propriétaires
+### Agents propriétaires - M4
 
 | Rôle | Agent |
 | --- | --- |
@@ -180,7 +180,7 @@ HARDENING                                                                       
 
 **Objectif :** Déployer le stack d'observabilité complet sur Kubernetes — métriques, logs, traces, alerting, uptime.
 
-### Livrables
+### Livrables - M5
 
 - Helm umbrella chart `observability/kube-prometheus-stack`
 - Loki stack + Fluent Bit DaemonSet (logs containers + OS)
@@ -190,7 +190,7 @@ HARDENING                                                                       
 - Blackbox Exporter + Uptime Kuma
 - Dashboards Grafana as code (Grafonnet ou JSON provisionné)
 
-### Gate de sortie
+### Gate de sortie - M5
 
 - [ ] Dashboard K8s cluster health opérationnel (CPU/Mem/Pods/PVs)
 - [ ] Log d'un pod visible dans Grafana < 30s après émission
@@ -198,7 +198,7 @@ HARDENING                                                                       
 - [ ] Wazuh détecte un `sudo` non autorisé sur agent Linux
 - [ ] Uptime Kuma : tous les endpoints critiques surveillés
 
-### Agents propriétaires
+### Agents propriétaires - M5
 
 | Rôle | Agent |
 | --- | --- |
@@ -212,7 +212,7 @@ HARDENING                                                                       
 
 **Objectif :** Connecter tous les services métier (M365, Atlassian, VPN/ZTNA, SIEM complet) au socle identité et observabilité.
 
-### Livrables
+### Livrables - M6
 
 - Headscale auto-hébergé + Tailscale mesh multi-site
 - SAML/OIDC : Atlassian Cloud → Keycloak, M365 → Entra ID Connect
@@ -220,14 +220,14 @@ HARDENING                                                                       
 - Module Terraform `network/vpn` - WireGuard/IPSec site-to-site
 - SLOs définis dans Grafana pour services critiques
 
-### Gate de sortie
+### Gate de sortie - M6
 
 - [ ] SSO unifié : login Jira, Confluence, et kubectl avec le même compte AD
 - [ ] Connexion VPN site-to-site testée avec fail-over
 - [ ] SIEM : alerte sur login depuis IP inconnue < 5 min
 - [ ] Intune : device compliance policy appliquée sur endpoints Windows
 
-### Agents propriétaires
+### Agents propriétaires - M6
 
 | Rôle | Agent |
 | --- | --- |
@@ -241,7 +241,7 @@ HARDENING                                                                       
 
 **Objectif :** Étendre la plateforme IaC aux clouds publics (AWS, Azure, GCP, OVH) avec mesh réseau unifié et observabilité cross-cloud.
 
-### Livrables
+### Livrables - M7
 
 - Modules Terraform par cloud : `cloud/aws`, `cloud/azure`, `cloud/gcp`, `cloud/ovh`
 - Tailscale mesh cross-cloud automatisé
@@ -250,14 +250,14 @@ HARDENING                                                                       
 - Infracost dans le pipeline CI (PR comment avec coût estimé)
 - Landing zones sécurisées par cloud (SCPs AWS, Azure Policies, GCP Org Policies)
 
-### Gate de sortie
+### Gate de sortie - M7
 
 - [ ] VM déployée sur AWS, Azure, GCP depuis même IaC en < 10 min
 - [ ] Dashboard Grafana unifié affichant métriques on-prem + cloud
 - [ ] Coût mensuel visible par namespace/projet dans OpenCost
 - [ ] Infracost bloque une PR si delta coût > 20% sur threshold défini
 
-### Agents propriétaires
+### Agents propriétaires - M7
 
 | Rôle | Agent |
 | --- | --- |
@@ -271,7 +271,7 @@ HARDENING                                                                       
 
 **Objectif :** Validation sécurité, SRE, et disaster recovery. Aucun composant ne va en production sans passer ce milestone.
 
-### Livrables
+### Livrables - M8
 
 - CIS Benchmark Ansible roles appliqués sur tous les OS
 - OPA/Gatekeeper policies enforced (deny privileged containers, require resource limits)
@@ -279,7 +279,7 @@ HARDENING                                                                       
 - Chaos Engineering : test de résilience Kubernetes (pod kill, node isolate)
 - Pentest interne documenté + remédiation
 
-### Gate de sortie
+### Gate de sortie - M8
 
 - [ ] CIS score >= niveau 2 sur Linux, niveau 1 sur Windows
 - [ ] Kubernetes : 0 pod en `privileged: true` en production
@@ -287,7 +287,7 @@ HARDENING                                                                       
 - [ ] Chaos test : perte d'un worker node K8s → 0 interruption de service
 - [ ] Rapport pentest : 0 finding critique non remédié
 
-### Agents propriétaires
+### Agents propriétaires - M8
 
 | Rôle | Agent |
 | --- | --- |
