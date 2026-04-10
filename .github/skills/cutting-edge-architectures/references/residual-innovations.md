@@ -1,6 +1,6 @@
 # Residual Connection Innovations — HC & mHC
 
-Reference for **Hyper-Connections (HC)** and **Manifold-Constrained Hyper-Connections (mHC)**.  
+Reference for **Hyper-Connections (HC)** and **Manifold-Constrained Hyper-Connections (mHC)**.
 These replace the fixed residual skip connection (`x + f(x)`) with a learnable multi-lane topology.
 
 ---

@@ -1,6 +1,3 @@
-default_language_version:
-  python: python3.11
-
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
@@ -34,8 +31,8 @@ repos:
             helm/.*
           )$
 
-  - repo: https://github.com/aquasecurity/trivy
-    rev: v0.58.0
+  # trivy uses language: system — must be local repo (aquasecurity/trivy has no .pre-commit-hooks.yaml)
+  - repo: local
     hooks:
       - id: trivy-config
         name: Trivy config scan

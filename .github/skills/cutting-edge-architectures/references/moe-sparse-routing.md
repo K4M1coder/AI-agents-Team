@@ -2,7 +2,7 @@
 
 Comprehensive reference for sparse expert routing, system stacks, training patterns, inference patterns, and expert parallelism. Covers 2024–2026 SOTA surveys, frameworks, and adoption guidance.
 
-> Cross-reference: architecture design parameters (num experts, top-k, load balance) in `skills/model-architectures/references/architecture-catalog.md`.  
+> Cross-reference: architecture design parameters (num experts, top-k, load balance) in `skills/model-architectures/references/architecture-catalog.md`.
 > Cross-reference: HC/mHC residual topology impact on MoE training stability in `references/residual-innovations.md`.
 
 ---

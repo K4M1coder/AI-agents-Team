@@ -83,10 +83,10 @@ from lm_eval.api.instance import Instance
 class MyTask(ConfigurableTask):
     DATASET_PATH = "my_org/my_eval_dataset"
     OUTPUT_TYPE = "generate_until"
-    
+
     def doc_to_text(self, doc):
         return doc["prompt"]
-    
+
     def process_results(self, doc, results):
         prediction = results[0].strip()
         return {"exact_match": prediction == doc["answer"]}
@@ -133,9 +133,9 @@ For model cards and team communication, produce:
 | MMLU (5-shot) | 0.72 | 0.70 | +2% | No contamination |
 | HumanEval (0-shot) | 0.45 | 0.42 | +3% | Pass@1 |
 
-**Harness**: lm-evaluation-harness v0.4.3  
-**Date**: YYYY-MM-DD  
-**Hardware**: 1× A100 80GB, bf16  
+**Harness**: lm-evaluation-harness v0.4.3
+**Date**: YYYY-MM-DD
+**Hardware**: 1× A100 80GB, bf16
 **Known limitations**: Not evaluated on multimodal or audio tasks.
 ```
 
